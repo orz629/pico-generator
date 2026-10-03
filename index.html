@@ -153,7 +153,7 @@ footer a{color:var(--teal);font-weight:700}
 <main class="wrap">
   <header>
     <h1>PICO 問題產生器</h1>
-    <p class="lede">選擇 P、I、C、O，組出一個可以回答的臨床問題，再依三個判斷線索看看最適合的研究設計是哪一種。</p>
+    <p class="lede">選擇 P、I、C、O，組出一個可以回答的臨床問題，下方會即時顯示最適合的研究設計。</p>
     <span class="notice">教學模擬工具：所有情境為自編，非真實研究，不提供療效結論</span>
   </header>
   <hr class="double">
@@ -174,45 +174,13 @@ footer a{color:var(--teal);font-weight:700}
 
   <section class="section" aria-labelledby="h-build">
     <h2 id="h-build">組合你的 PICO</h2>
-    <p class="hint">先決定想問的是「比較效果或風險」，還是「描述現況有多常見」。點問題卡上的彩色字，也能跳到對應欄位。</p>
-    <div class="seg" role="radiogroup" aria-label="問題焦點">
-      <label><input type="radio" name="focus" value="compare" checked><span>比較效果或風險</span></label>
-      <label><input type="radio" name="focus" value="now"><span>描述現況有多常見</span></label>
-    </div>
+    <p class="hint">從四個欄位各選一項。點問題卡上的彩色字，也能跳到對應欄位。</p>
     <div class="grid">
       <div class="col p" id="col-p"><div class="colhead"><span class="letter">P</span><span class="colname">對象</span></div><fieldset id="fs-p"><legend>P 對象</legend></fieldset></div>
       <div class="col i" id="col-i"><div class="colhead"><span class="letter">I</span><span class="colname">介入或暴露</span></div><fieldset id="fs-i"><legend>I 介入或暴露</legend></fieldset></div>
       <div class="col c" id="col-c"><div class="colhead"><span class="letter">C</span><span class="colname">比較對象</span></div><p class="minor">選項會依 I 自動配對。</p><fieldset id="fs-c"><legend>C 比較對象</legend></fieldset></div>
       <div class="col o" id="col-o"><div class="colhead"><span class="letter">O</span><span class="colname">結果</span></div>
-        <div class="seg small" role="radiogroup" aria-label="結果指標類型">
-          <label><input type="radio" name="otype" value="sur" checked><span>替代指標</span></label>
-          <label><input type="radio" name="otype" value="pat"><span>病人在意的結果</span></label>
-        </div>
         <fieldset id="fs-o"><legend>O 結果</legend></fieldset></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="h-clue">
-    <h2 id="h-clue">三個判斷線索</h2>
-    <p class="hint">線索依序判斷：前一題的答案，決定下一題要不要問。</p>
-    <div class="clues">
-      <div class="clue" id="clue1">
-        <span class="num" aria-hidden="true">1</span>
-        <div><div class="q">想比較效果或風險，還是描述現況？</div><div class="ans" id="ans1"></div></div>
-      </div>
-      <div class="clue" id="clue2">
-        <span class="num" aria-hidden="true">2</span>
-        <div><div class="q">I 由研究者分派嗎？</div><div class="ans" id="ans2"></div>
-          <label class="switch"><input type="checkbox" id="assigned"><span>研究者分派 I</span></label>
-          <label class="switch"><input type="checkbox" id="randomized" checked><span>以隨機方式分派</span></label>
-        </div>
-      </div>
-      <div class="clue" id="clue3">
-        <span class="num" aria-hidden="true">3</span>
-        <div><div class="q">O 罕見，或要很久才會發生嗎？</div><div class="ans" id="ans3"></div>
-          <label class="switch"><input type="checkbox" id="rare"><span>罕見或發生需要很久</span></label>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -223,6 +191,7 @@ footer a{color:var(--teal);font-weight:700}
         <span class="cat" id="rcat"></span>
         <div class="dname" id="rname"></div>
         <dl>
+          <dt>判斷理由</dt><dd id="rwhy"></dd>
           <dt>怎麼做</dt><dd id="rhow"></dd>
           <dt>能得到</dt><dd id="rmeasure"></dd>
           <dt>主要限制</dt><dd id="rlimit"></dd>
@@ -235,34 +204,12 @@ footer a{color:var(--teal);font-weight:700}
         <p class="cap" id="flowcap"></p>
       </div>
     </div>
+    <p class="hint" style="margin-top:22px">若只想知道某個時間點有多常見、兩者是否相關，則適合<b>橫斷面研究</b>：同一時間點同時測量暴露與結果，但通常看不出誰先發生。</p>
   </section>
 
-  <section class="section" aria-labelledby="h-o">
-    <h2 id="h-o">結果指標怎麼選</h2>
-    <p class="hint">O 要具體、可測量，也要對病人有意義。目前選的結果屬於哪一類，會在下方標示。</p>
-    <div class="ocomp">
-      <div class="opanel" id="op-sur"><span class="now">目前選擇</span>
-        <h3>替代指標</h3>
-        <p>反應疾病進程的測量值，常用、變化快、容易測，適合短期研究。</p>
-        <ul><li>探測深度（PD）</li><li>臨床附連程度（CAL）</li><li>HbA1c</li></ul>
-        <p class="minor">限制：替代指標改善，不一定代表病人真正在意的結果也跟著改善。</p>
-      </div>
-      <div class="opanel" id="op-pat"><span class="now">目前選擇</span>
-        <h3>病人在意的結果</h3>
-        <p>病人能直接感受、真正關心的結果，常需要較長追蹤或較大樣本。</p>
-        <ul><li>牙齒能否保留</li><li>咀嚼功能與口腔健康相關生活品質</li><li>植體周圍炎、顎骨壞死等併發症</li></ul>
-        <p class="minor">限制：發生慢或少見時，研究成本與可行性是挑戰。</p>
-      </div>
-    </div>
-    <div class="ocall">
-      <button class="btn" type="button" id="swapO"></button>
-      <span class="status" id="swapNote"></span>
-    </div>
-  </section>
 
   <footer>
-    <p>本工具為 EBM 教學用的簡化示範，只涵蓋隨機對照試驗、非隨機介入研究、世代研究、病例對照研究與橫斷面研究的入門辨識，不是完整的研究設計分類。所有選項組合皆為教學模擬，非真實研究；實際研究是否可行，還要考量倫理、資源與執行品質，研究方法細節在此情境中屬資訊不足。</p>
-    <p>延伸閱讀：<a href="https://www.cebm.ox.ac.uk/resources/ebm-tools/study-designs" target="_blank" rel="noopener">Oxford CEBM：Study designs</a>、<a href="https://casp-uk.net/casp-tools-checklists/" target="_blank" rel="noopener">CASP 文獻評讀工具</a></p>
+    <p>本工具為 EBM 教學用的簡化示範，只涵蓋隨機對照試驗、世代研究與病例對照研究的入門辨識，不是完整的研究設計分類；描述盛行率的橫斷面研究請見簡報。所有選項組合皆為教學模擬，非真實研究；實際研究是否可行，還要考量倫理、資源與執行品質，研究方法細節在此情境中屬資訊不足。</p>
   </footer>
 </main>
 
@@ -272,8 +219,7 @@ footer a{color:var(--teal);font-weight:700}
     {id:'p1', text:'血糖控制不佳的第二型糖尿病合併牙周炎成人', short:'糖尿病合併牙周炎病人'},
     {id:'p2', text:'已完成積極治療、進入維護期的牙周炎病人', short:'維護期牙周炎病人'},
     {id:'p3', text:'植體已負重使用的成人', short:'植牙病人'},
-    {id:'p4', text:'使用抗骨吸收藥物、需要拔牙的病人', short:'抗骨吸收藥物使用者'},
-    {id:'p5', text:'某醫院糖尿病門診病人', short:'糖尿病門診病人'}
+    {id:'p4', text:'使用抗骨吸收藥物、需要拔牙的病人', short:'抗骨吸收藥物使用者'}
   ];
   const C = {
     c1:'未治療或延後治療', c2:'僅接受非手術性牙周治療', c3:'未規律接受牙周維護',
@@ -298,7 +244,7 @@ footer a{color:var(--teal);font-weight:700}
     {id:'o7', text:'藥物相關顎骨壞死（MRONJ）', short:'MRONJ', type:'pat', event:true, rare:true}
   ];
 
-  const st = {p:'p1', i:'i1', c:'c1', o:'o1', focus:'compare', otype:'sur', assigned:true, randomized:true, rare:false};
+  const st = {p:'p1', i:'i1', c:'c1', o:'o1'};
   const $ = id => document.getElementById(id);
   const byId = (arr,id) => arr.find(x=>x.id===id);
 
@@ -317,15 +263,14 @@ footer a{color:var(--teal);font-weight:700}
     $('fs-c').innerHTML = '<legend>C 比較對象</legend>' + allowed.map(id=>optHTML('c',id,C[id],'',id===st.c)).join('');
   }
   function renderO(){
-    const list = O.filter(x=>x.type===st.otype);
-    if(!list.some(x=>x.id===st.o)){ st.o = list[0].id; st.rare = list[0].rare; }
-    $('fs-o').innerHTML = '<legend>O 結果</legend>' + list.map(x=>optHTML('o',x.id,x.text,'',x.id===st.o)).join('');
+    const list = O;
+    $('fs-o').innerHTML = '<legend>O 結果</legend>' + list.map(x=>optHTML('o',x.id,x.text,x.type==='sur'?'替代指標':'病人在意',x.id===st.o)).join('');
   }
 
   function design(){
-    if(st.focus==='now') return 'cross';
-    if(st.assigned) return st.randomized ? 'rct' : 'nrsi';
-    return st.rare ? 'cc' : 'cohort';
+    const i=byId(I,st.i), o=byId(O,st.o);
+    if(i.kind==='int' && i.assignable) return 'rct';
+    return o.rare ? 'cc' : 'cohort';
   }
 
   function slot(cls, letter, text){
@@ -334,16 +279,12 @@ footer a{color:var(--teal);font-weight:700}
   function sentence(){
     const p=byId(P,st.p), i=byId(I,st.i), o=byId(O,st.o), c=C[st.c];
     const sP=slot('p','P',p.text), sI=slot('i','I',i.text), sC=slot('c','C',c), sO=slot('o','O',o.text);
-    if(st.focus==='now'){
-      return `在${sP}中，${sO}的狀況如何？與${i.kind==='int'?'是否接受':'是否有'}${sI}（相較於${sC}）有沒有相關？`;
-    }
     const tail = o.event ? `日後發生${sO}的風險是否不同？` : `${sO}是否不同？`;
     if(i.kind==='int') return `對於${sP}，接受${sI}，相較於${sC}，${tail}`;
     return `對於${sP}，有${sI}者相較於${sC}者，${tail}`;
   }
   function qtype(d){
     const i=byId(I,st.i), o=byId(O,st.o);
-    if(d==='cross') return '問題類型：盛行率／現況';
     if(i.kind==='int') return d==='rct'||d==='nrsi' ? '問題類型：治療（Therapy）' : '問題類型：治療效果（觀察性證據）';
     return o.event ? '問題類型：危險因子・預後' : '問題類型：危害・病因';
   }
@@ -364,22 +305,17 @@ footer a{color:var(--teal);font-weight:700}
     cc:{cat:'觀察性研究', name:'病例對照研究（Case-control study）',
       how:'先依有沒有發生 O，選出病例組與對照組，再回頭比較兩組先前有 I 的比例。',
       measure:'勝算比（OR）；不能把樣本中的病例比例當成族群發生率。',
-      limit:'回憶偏差、對照組來源不當造成的選樣偏差。'},
-    cross:{cat:'觀察性研究', name:'橫斷面研究（Cross-sectional study）',
-      how:'在同一個時間點，同時測量 I 與 O。',
-      measure:'盛行率，以及 I 與 O 的相關性。',
-      limit:'通常無法確認時間先後；相關不等於因果，也不等於追蹤新事件的世代研究。'}
+      limit:'回憶偏差、對照組來源不當造成的選樣偏差。'}
   };
 
   function notes(d){
     const i=byId(I,st.i), o=byId(O,st.o), n=[];
-    if(st.focus==='compare' && !i.assignable) n.push(`「${i.text}」無法由研究者分派：${i.why}，所以這題不能用 RCT 回答。`);
-    if(st.focus==='compare' && i.assignable && !st.assigned) n.push('這個治療原本可以由研究者分派；若改成隨機分派，就能做 RCT，因果推論最強。');
+    if(!i.assignable) n.push(`「${i.text}」無法由研究者分派：${i.why}，所以這題不能用 RCT 回答。`);
     if(d==='rct') n.push('本情境沒有提供分派隱匿、盲法、失訪等執行細節，屬資訊不足；標示 RCT 不代表一定沒有偏差。');
-    if(d==='rct' && st.rare) n.push('結果罕見或發生很慢時，RCT 需要很大樣本或很長追蹤，可行性要先評估。');
+    if(d==='rct' && o.rare) n.push('結果罕見或發生很慢時，RCT 需要很大樣本或很長追蹤，可行性要先評估。');
     if(d==='cc' && !o.event) n.push('病例對照研究需要能把人分成「有發生／沒發生」的結果；連續數值的 O 較不適合，可考慮換成事件型結果。');
-    if(d==='cohort' && st.rare) n.push('結果罕見時，世代研究要追蹤非常大量的人才看得到足夠事件。');
-    if(o.type==='sur' && d!=='cross') n.push('目前的 O 是替代指標，可以想想病人更在意的結果是什麼，例如牙齒能否保留。');
+    if(d==='cohort' && o.rare) n.push('結果罕見時，世代研究要追蹤非常大量的人才看得到足夠事件。');
+    if(o.type==='sur') n.push('目前的 O 是替代指標，可以想想病人更在意的結果是什麼，例如牙齒能否保留。');
     return n;
   }
 
@@ -460,48 +396,28 @@ footer a{color:var(--teal);font-weight:700}
     return {svg:`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}" font-family="Noto Sans TC, PingFang TC, Microsoft JhengHei, sans-serif">${defs}${g}</svg>`, cap};
   }
 
+  function why(d){
+    const i=byId(I,st.i), o=byId(O,st.o);
+    if(d==='rct') return `「${i.text}」是可以由研究者分派的治療，用隨機分派比較效果最有力。`;
+    const base = i.kind==='int' ? `研究者沒有分派「${i.text}」，只是觀察` : `「${i.text}」無法由研究者分派`;
+    return d==='cc' ? `${base}，而且「${o.text}」罕見或要很久才發生，從結果出發選人較有效率。`
+                    : `${base}，所以依暴露分組、往後追蹤「${o.text}」。`;
+  }
   let lastD=null;
   function update(){
     const i=byId(I,st.i), o=byId(O,st.o), d=design();
     $('sentence').innerHTML = sentence();
     $('qtype').textContent = qtype(d);
 
-    // clue 1
-    $('ans1').textContent = st.focus==='now' ? '描述現況 → 直接選橫斷面研究，線索 2、3 不必再問。' : '比較效果或風險 → 繼續看線索 2。';
-    // clue 2
-    const c2off = st.focus==='now';
-    $('clue2').classList.toggle('off', c2off);
-    const asg=$('assigned'), rnd=$('randomized');
-    asg.disabled = c2off || !i.assignable;
-    asg.checked = st.assigned;
-    rnd.disabled = c2off || !st.assigned;
-    rnd.checked = st.randomized;
-    $('ans2').textContent = c2off ? '不適用。' :
-      !i.assignable ? `${i.why}，只能觀察 → 看線索 3。` :
-      st.assigned ? (st.randomized ? '研究者隨機分派 → 隨機對照試驗。' : '研究者分派但非隨機 → 不能稱為 RCT。') :
-      '研究者只觀察病人原本是否接受治療 → 看線索 3。';
-    // clue 3
-    const c3off = st.focus==='now' || st.assigned;
-    $('clue3').classList.toggle('off', c3off);
-    $('rare').disabled = st.focus==='now';
-    $('rare').checked = st.rare;
-    $('ans3').textContent = st.focus==='now' ? '不適用。' :
-      st.assigned ? '已由線索 2 決定設計；此答案只影響可行性提醒。' :
-      st.rare ? '罕見或很久才發生 → 從結果出發選人，病例對照研究較有效率。' : '不罕見 → 依暴露分組往後追蹤，世代研究。';
-
     // result
     const inf=INFO[d];
     $('rcat').textContent=inf.cat; $('rname').textContent=inf.name;
-    $('rhow').textContent=inf.how; $('rmeasure').textContent=inf.measure; $('rlimit').textContent=inf.limit;
+    $('rwhy').textContent=why(d); $('rhow').textContent=inf.how; $('rmeasure').textContent=inf.measure; $('rlimit').textContent=inf.limit;
     $('rnotes').innerHTML = notes(d).map(s=>`<li>${s}</li>`).join('');
     const f=flowSVG(d); $('flow').innerHTML=f.svg; $('flowcap').textContent=f.cap;
     if(lastD && lastD!==d){ const r=$('rcard'); r.classList.remove('flash'); void r.offsetWidth; r.classList.add('flash'); }
     lastD=d;
 
-    // outcome panels
-    $('op-sur').classList.toggle('active', o.type==='sur');
-    $('op-pat').classList.toggle('active', o.type==='pat');
-    $('swapO').textContent = o.type==='sur' ? '改用病人在意的結果：牙齒喪失' : '改用替代指標：探測深度';
     $('copyStatus').textContent='';
   }
 
@@ -510,14 +426,9 @@ footer a{color:var(--teal);font-weight:700}
   document.addEventListener('change', e=>{
     const t=e.target;
     if(t.name==='p'){ st.p=t.value; }
-    else if(t.name==='i'){ st.i=t.value; const i=byId(I,st.i); st.assigned = i.kind==='int' && i.assignable; renderC(); }
+    else if(t.name==='i'){ st.i=t.value; renderC(); }
     else if(t.name==='c'){ st.c=t.value; }
-    else if(t.name==='o'){ st.o=t.value; st.rare=byId(O,st.o).rare; }
-    else if(t.name==='otype'){ st.otype=t.value; renderO(); }
-    else if(t.name==='focus'){ st.focus=t.value; }
-    else if(t.id==='assigned'){ st.assigned=t.checked; }
-    else if(t.id==='randomized'){ st.randomized=t.checked; }
-    else if(t.id==='rare'){ st.rare=t.checked; }
+    else if(t.name==='o'){ st.o=t.value; }
     else return;
     update();
   });
@@ -528,14 +439,6 @@ footer a{color:var(--teal);font-weight:700}
     const inp=col.querySelector('input:checked')||col.querySelector('input'); if(inp) inp.focus({preventScroll:true});
   });
 
-  $('swapO').addEventListener('click', ()=>{
-    const o=byId(O,st.o);
-    if(o.type==='sur'){ st.otype='pat'; st.o='o4'; } else { st.otype='sur'; st.o='o2'; }
-    st.rare=byId(O,st.o).rare;
-    document.querySelector(`input[name="otype"][value="${st.otype}"]`).checked=true;
-    renderO(); update();
-    $('swapNote').textContent = `O 已改為「${byId(O,st.o).text}」，問題句子與建議設計已更新。`;
-  });
 
   $('copyBtn').addEventListener('click', async ()=>{
     const s=plainSentence();
